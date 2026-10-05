@@ -24,6 +24,12 @@ def launcher(background):
     return str(exe), ["-m", "moodle_sync"]
 
 
+def start_folder(command):
+    """Working directory for task and shortcut: the program's own folder. Python puts the working directory first
+    on the module search path, so a stray moodle_sync.py there would shadow the installed package."""
+    return str(Path(command).parent)
+
+
 def task_xml(command, arguments, workdir, at="07:00"):
     """Task definition: daily at `at`, catches up on missed runs, also on battery, max 30 minutes."""
     hour, minute = (int(x) for x in at.split(":"))
@@ -85,7 +91,7 @@ def _powershell(script, env=None):
 def install_task(home, at="07:00", name=TASK_NAME):
     command, args = launcher(background=True)
     arguments = subprocess.list2cmdline(args + ["--home", str(home.dir), "sync", "--quiet"])
-    xml = task_xml(command, arguments, str(home.dir), at)
+    xml = task_xml(command, arguments, start_folder(command), at)
     fd, path = tempfile.mkstemp(suffix=".xml")
     try:
         with os.fdopen(fd, "w", encoding="utf-16") as f:
@@ -120,5 +126,5 @@ def create_shortcut(home, folder=None, name=SHORTCUT_NAME):
     )
     env = dict(os.environ, MS_FOLDER=str(folder or ""), MS_NAME=name, MS_TARGET=command,
                MS_ARGS=subprocess.list2cmdline(args + ["--home", str(home.dir), "sync", "--pause"]),
-               MS_WORKDIR=str(home.dir), MS_ICON=os.path.expandvars(r"%SystemRoot%\System32\imageres.dll,229"))
+               MS_WORKDIR=start_folder(command), MS_ICON=os.path.expandvars(r"%SystemRoot%\System32\imageres.dll,229"))
     return _powershell(script, env=env)

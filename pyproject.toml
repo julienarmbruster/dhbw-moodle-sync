@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "dhbw-moodle-sync"
-version = "1.0.0"
+version = "1.0.1"
 description = "Lädt deine Moodle-Kursdateien automatisch in sortierte Ordner und hält sie aktuell."
 readme = "README.md"
 requires-python = ">=3.9"

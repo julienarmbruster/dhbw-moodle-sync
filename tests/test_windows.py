@@ -23,6 +23,11 @@ class TaskXmlTest(unittest.TestCase):
         self.assertEqual(root.find(".//t:WorkingDirectory", NS).text, r"C:\A & B")
         self.assertIn("--quiet", root.find(".//t:Arguments", NS).text)
 
+    def test_starts_in_program_folder_not_settings_folder(self):
+        # a moodle_sync.py in the working directory would shadow the installed package
+        command = str(Path("venv") / "Scripts" / "pythonw.exe")
+        self.assertEqual(windows.start_folder(command), str(Path("venv") / "Scripts"))
+
 
 @unittest.skipUnless(sys.platform == "win32", "Windows only")
 class LauncherTest(unittest.TestCase):
