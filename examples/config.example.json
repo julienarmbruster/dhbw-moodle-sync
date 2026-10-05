@@ -1,0 +1,43 @@
+{
+  "site": "https://elearning.dhbw-ravensburg.de",
+  "target": "C:\\DHBW\\Semester_3",
+  "sort_mode": "categories",
+  "max_size_mb": 300,
+  "courses": {
+    "10001": {
+      "name": "TSA/TSL25 - Elektronik (ABC)",
+      "folder": "Elektronik",
+      "rules": [
+        {"section": "mitschrift", "to": "Vorlesung/Mitschriften"}
+      ]
+    },
+    "10002": {
+      "name": "TSA/TSL25 - Technische Informatik 3 (DEF)",
+      "folder": "TI3",
+      "rules": [
+        {"section": "Dozentenbereich|Programm-Archiv", "ignore": true},
+        {"module": "^Foliensatz", "to": "Vorlesung"},
+        {"section": "Dokumente zum Prozessor", "to": "Material/Prozessor"},
+        {"section": "Dokumente zur DMA", "to": "Material/DMA"},
+        {"section": "GPIO", "to": "Programmieraufgaben/GPIO"},
+        {"section": "Timer|\\(TIM\\)", "to": "Programmieraufgaben/Timer_TIM"},
+        {"section": "Analog|ADC", "to": "Programmieraufgaben/ADC"}
+      ]
+    },
+    "10003": {
+      "name": "TSA/TFE25 - Fahrzeugtechnik und Fahrzeugelektrik (MNO)",
+      "folder": "Fahrzeugtechnik",
+      "rules": [
+        {"file": "klausur|^FP_", "to": "Klausurvorbereitung"},
+        {"file": "^skript", "to": "Vorlesung"}
+      ]
+    }
+  },
+  "rules": [],
+  "ignore": [
+    {"file": "^Tools\\.zip\\.\\d+$", "ignore": true}
+  ],
+  "new_courses": [
+    {"match": "mathe(matik)?\\s*(3|iii)\\b", "folder": "Mathe_3"}
+  ]
+}

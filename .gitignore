@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+.idea/
+.vscode/
+
+# personal data, never commit
+config.json
+token.json
+state.json
+sync.log
+sync.old.log
